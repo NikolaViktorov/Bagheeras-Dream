@@ -1,0 +1,49 @@
+﻿@using Bagheeras.Dream.Web.ViewModels.Cats;
+
+@model CatDetailsViewModel
+
+<div class="row">
+    <div class="jumbotron col-md-12">
+
+        <div class="newsImage-box">
+            <img class="newsImage-details" src="~/catImages/@Model.ProfileImage">
+        </div>
+
+        <div class="newImage-title-box">
+            <div class="jtSCCa">
+                <div class="crPSMM">
+                    <h1 class="fCQbDk"> @Model.Name </h1>
+                </div>
+            </div>
+            <div class="cRqIBK dYRCfL">
+                <time class="dYaFx" datetime="2020-11-10" class="bRTHLn">Date of Birth: @Model.Birthday.ToString("dd/MM/yy")</time>
+                <div class="gLkYks">
+                    <span class="dhCzKp">
+                        <span class="kZKxoP">Breeder</span>
+                        <span class="QAuEs">Bagheera's Dream</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <p></p>
+
+        <div class="cat-info">
+            <h1 class="cat-gender">
+                Gender - @Model.Gender
+            </h1>
+            <h1 class="cat-breed">
+                Breed - @Model.Breed
+            </h1>
+            <h1 class="cat-color">
+                Color - @Model.Color
+            </h1>
+        </div>
+
+        <div class="button-holder">
+            <a href="/Cats/Home" class="btn btn-info text-uppercase">Go Back</a>
+        </div>
+
+        <p></p>
+    </div>
+</div>
