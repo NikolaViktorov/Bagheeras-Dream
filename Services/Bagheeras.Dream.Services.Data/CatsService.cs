@@ -47,60 +47,83 @@
 
             if (!string.IsNullOrEmpty(input.FatherName) || !string.IsNullOrWhiteSpace(input.FatherName))
             {
-                var fatherCat = await this.db.Cats.FirstOrDefaultAsync(c => c.Name == input.FatherName);
-                this.db.Cats.Remove(fatherCat);
+                var fatherCat = await this.db.Males.FirstOrDefaultAsync(c => c.Name == input.FatherName);
 
-                father = new Male()
+                if (fatherCat == null)
                 {
-                    Name = fatherCat.Name,
-                    Age = fatherCat.Age,
-                    Birthday = fatherCat.Birthday,
-                    Gender = fatherCat.Gender,
-                    Breed = fatherCat.Breed,
-                    Color = fatherCat.Color,
-                    FatherId = fatherCat.FatherId,
-                    Father = fatherCat.Father,
-                    MotherId = fatherCat.MotherId,
-                    Mother = fatherCat.Mother,
-                    ProfileImage = fatherCat.ProfileImage,
-                };
+                    var catNotFather = await this.db.Cats.FirstOrDefaultAsync(c => c.Name == input.FatherName);
+                    this.db.Cats.Remove(catNotFather);
 
-                await this.db.Cats.AddAsync(father);
-                await this.db.SaveChangesAsync();
+                    father = new Male()
+                    {
+                        Name = catNotFather.Name,
+                        Age = catNotFather.Age,
+                        Birthday = catNotFather.Birthday,
+                        Gender = catNotFather.Gender,
+                        Breed = catNotFather.Breed,
+                        Color = catNotFather.Color,
+                        FatherId = catNotFather.FatherId,
+                        Father = catNotFather.Father,
+                        MotherId = catNotFather.MotherId,
+                        Mother = catNotFather.Mother,
+                        ProfileImage = catNotFather.ProfileImage,
+                    };
 
-                cat.FatherId = father.CatId;
-                cat.Father = father;
+                    await this.db.Males.AddAsync(father);
+                    await this.db.SaveChangesAsync();
 
-                father.Children.Add(cat);
+                    cat.FatherId = father.CatId;
+                    cat.Father = father;
+
+                    father.Children.Add(cat);
+                }
+                else
+                {
+                    cat.FatherId = fatherCat.CatId;
+                    cat.Father = fatherCat;
+                    fatherCat.Children.Add(cat);
+                }
             }
 
             if (!string.IsNullOrEmpty(input.MotherName) || !string.IsNullOrWhiteSpace(input.MotherName))
             {
-                var motherCat = await this.db.Cats.FirstOrDefaultAsync(c => c.Name == input.MotherName);
-                this.db.Cats.Remove(motherCat);
+                var motherCat = await this.db.Females.FirstOrDefaultAsync(c => c.Name == input.MotherName);
 
-                mother = new Female()
+                if (motherCat == null)
                 {
-                    Name = motherCat.Name,
-                    Age = motherCat.Age,
-                    Birthday = motherCat.Birthday,
-                    Gender = motherCat.Gender,
-                    Breed = motherCat.Breed,
-                    Color = motherCat.Color,
-                    FatherId = motherCat.FatherId,
-                    Father = motherCat.Father,
-                    MotherId = motherCat.MotherId,
-                    Mother = motherCat.Mother,
-                    ProfileImage = motherCat.ProfileImage,
-                };
+                    var catNotMother = await this.db.Cats.FirstOrDefaultAsync(c => c.Name == input.MotherName);
+                    this.db.Cats.Remove(catNotMother);
 
-                cat.MotherId = mother.CatId;
-                cat.Mother = mother;
+                    mother = new Female()
+                    {
+                        Name = catNotMother.Name,
+                        Age = catNotMother.Age,
+                        Birthday = catNotMother.Birthday,
+                        Gender = catNotMother.Gender,
+                        Breed = catNotMother.Breed,
+                        Color = catNotMother.Color,
+                        FatherId = catNotMother.FatherId,
+                        Father = catNotMother.Father,
+                        MotherId = catNotMother.MotherId,
+                        Mother = catNotMother.Mother,
+                        ProfileImage = catNotMother.ProfileImage,
+                    };
 
-                mother.Children.Add(cat);
+                    await this.db.Females.AddAsync(mother);
+                    await this.db.SaveChangesAsync();
 
-                await this.db.Cats.AddAsync(mother);
-                await this.db.SaveChangesAsync();
+                    cat.MotherId = mother.CatId;
+                    cat.Mother = mother;
+
+                    mother.Children.Add(cat);
+                }
+                else
+                {
+                    cat.MotherId = motherCat.CatId;
+                    cat.Mother = motherCat;
+
+                    motherCat.Children.Add(cat);
+                }
             }
 
             await this.db.SaveChangesAsync();
@@ -139,9 +162,10 @@
 
             if (!string.IsNullOrEmpty(cat.FatherId))
             {
-                var father = await this.db.Cats.FirstOrDefaultAsync(c => c.FatherId == cat.FatherId);
+                var father = await this.db.Cats.FirstOrDefaultAsync(c => c.CatId == cat.FatherId);
                 model.Father = new ParentPartialViewModel()
                 {
+                    CatId = father.CatId,
                     Name = father.Name,
                     ProfileImage = father.ProfileImage,
                 };
@@ -149,9 +173,10 @@
 
             if (!string.IsNullOrEmpty(cat.MotherId))
             {
-                var mother = await this.db.Cats.FirstOrDefaultAsync(c => c.MotherId == cat.MotherId);
+                var mother = await this.db.Cats.FirstOrDefaultAsync(c => c.CatId == cat.MotherId);
                 model.Mother = new ParentPartialViewModel()
                 {
+                    CatId = mother.CatId,
                     Name = mother.Name,
                     ProfileImage = mother.ProfileImage,
                 };

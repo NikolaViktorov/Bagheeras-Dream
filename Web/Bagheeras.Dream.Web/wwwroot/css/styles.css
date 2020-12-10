@@ -1747,24 +1747,108 @@ nav {
 /**********************/
 /*     17. Footer     */
 /**********************/
-.footer {
-	padding-top: 5rem;
-	background-color: #113448;
+
+footer {
+	background-color: #4a4a4a;
 }
 
-.footer .text-container {
-	margin-bottom: 2.25rem;
+.footer-top {
+	padding: 60px 0 40px 0;
+	text-align: left;
 }
 
-.footer h4 {
-	margin-bottom: 0.75rem;
-	color: #fff;
+	.footer-top h3 {
+		padding-bottom: 10px;
+	}
+
+.footer-contact p {
+	word-wrap: break-word;
 }
 
-.footer p,
-.footer ul {
-	font-size: 0.875rem;
-	line-height: 1.375rem;
+.footer-contact i {
+	padding-right: 10px;
+	font-size: 18px;
+	color: #ddd;
+}
+
+.footer-contact p a {
+	border-bottom: 1px dashed #ccc;
+}
+
+	.footer-contact p a:hover, .footer-contact p a:focus {
+		border-bottom: 1px dashed #856dc0;
+	}
+
+.footer-links a {
+	color: #888;
+	border: 0;
+}
+
+	.footer-links a:hover, .footer-links a:focus {
+		color: #555;
+		margin-left: 3px;
+	}
+
+.footer-bottom {
+	padding: 0 0 60px 0;
+}
+
+.footer-social a {
+	margin: 0 10px;
+	color: #bbb;
+	border: 0;
+}
+
+	.footer-social a:hover, .footer-social a:focus {
+		color: #856dc0;
+		border: 0;
+	}
+
+.footer-social i {
+	font-size: 24px;
+	vertical-align: middle;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+	.footer-top {
+		padding: 40px 0 20px 0;
+	}
+
+	.footer-bottom {
+		padding: 0 0 40px 0;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+	.footer-top {
+		padding: 40px 0 20px 0;
+	}
+
+	.footer-bottom {
+		padding: 0 0 40px 0;
+	}
+
+	.footer-contact i {
+		padding-right: 5px;
+	}
+}
+
+@media (max-width: 767px) {
+
+	.footer-top {
+		padding: 40px 0 20px 0;
+		text-align: center;
+	}
+
+	.footer-bottom {
+		padding: 0 0 40px 0;
+	}
+
+	.footer-contact i {
+		padding-right: 5px;
+	}
 }
 
 

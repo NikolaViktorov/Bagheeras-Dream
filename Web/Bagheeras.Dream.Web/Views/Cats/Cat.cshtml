@@ -1,9 +1,10 @@
 ﻿@using Bagheeras.Dream.Web.ViewModels.Cats;
 
 @model CatDetailsViewModel
+<link rel="stylesheet" href="~/css/cat.css" asp-append-version="true" />
 
 <div class="row">
-    <div class="jumbotron col-md-12">
+    <div class="col-md-12">
 
         <div class="newsImage-box">
             <img class="newsImage-details" src="~/catImages/@Model.ProfileImage">
@@ -16,7 +17,7 @@
                 </div>
             </div>
             <div class="cRqIBK dYRCfL">
-                <time class="dYaFx" datetime="2020-11-10" class="bRTHLn">Date of Birth: @Model.Birthday.ToString("dd/MM/yy")</time>
+                <time class="dYaFx" datetime="2020-11-10">Date of Birth: @Model.Birthday.ToString("dd/MM/yy")</time>
                 <div class="gLkYks">
                     <span class="dhCzKp">
                         <span class="kZKxoP">Breeder</span>
@@ -29,21 +30,62 @@
         <p></p>
 
         <div class="cat-info">
-            <h1 class="cat-gender">
-                Gender - @Model.Gender
-            </h1>
-            <h1 class="cat-breed">
-                Breed - @Model.Breed
-            </h1>
-            <h1 class="cat-color">
-                Color - @Model.Color
-            </h1>
-        </div>
+            <div id="intro" class="basic-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-container">
+                                <div class="section-title">INFO</div>
+                                <h2>GOKO The Right Place To Be</h2>
+                                <h1 class="cat-gender">
+                                    Gender - @Model.Gender
+                                </h1>
+                                <h1 class="cat-breed">
+                                    Breed - @Model.Breed
+                                </h1>
+                                <h1 class="cat-color">
+                                    Color - @Model.Color
+                                </h1>
+                                <p>Bulgarian Goko Roleplay is a community, created in 2019, with goal to bring optimized, logical and quality experience while playing FiveM. After first starting as a ESX base server, Goko has expanded far away from that and continues to offer new, innovative functionalities to enchance your experience in the server.</p>
+                            </div> <!-- end of text-container -->
+                        </div> <!-- end of col -->
+                        <div class="col-lg-7">
 
-        <div class="button-holder">
-            <a href="/Cats/Home" class="btn btn-info text-uppercase">Go Back</a>
-        </div>
+                    </div> <!-- end of row -->
+                </div> <!-- end of container -->
+            </div>
 
+            @if (Model.Father != null && Model.Mother != null)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="parent card">
+                            <div class="card-image">
+                                <img class="img-fluid" src="~/catImages/@Model.Mother.ProfileImage" alt="#">
+                            </div>
+                            <div class="parent-info">
+                                <h3 class="card-title">@Model.Mother.Name</h3>
+                            </div>
+                            <div class="button-container">
+                                <a class="btn-solid-reg page-scroll" href="/Cats/Cat?catId=@Model.Mother.CatId">SEE MORE</a>
+                            </div> <!-- end of button-container -->
+                        </div>
+
+                        <div class="parent card">
+                            <div class="card-image">
+                                <img class="img-fluid" src="~/catImages/@Model.Father.ProfileImage" alt="#">
+                            </div>
+                            <div class="parent-info">
+                                <h3 class="card-title">@Model.Father.Name</h3>
+                            </div>
+                            <div class="button-container">
+                                <a class="btn-solid-reg page-scroll" href="/Cats/Cat?catId=@Model.Father.CatId">SEE MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
         <p></p>
     </div>
 </div>

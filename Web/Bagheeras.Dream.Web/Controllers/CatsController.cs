@@ -1,5 +1,6 @@
 ﻿namespace Bagheeras.Dream.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Bagheeras.Dream.Services.Data.Contracts;
@@ -24,7 +25,8 @@
 
         public async Task<IActionResult> Home()
         {
-            var viewModel = await this.catsService.GetAll();
+            var cats = await this.catsService.GetAll();
+            var viewModel = cats.Take(3);
             return this.View(viewModel);
         }
 
