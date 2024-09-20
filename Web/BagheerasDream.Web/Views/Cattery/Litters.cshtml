@@ -1,0 +1,72 @@
+﻿@using BagheerasDream.Common
+@using BagheerasDream.Web.ViewModels.Litter;
+
+@model ICollection<LitterViewModel>
+
+@{
+	ViewData["Title"] = "Litters";
+}
+<section id="blog" class="blog">
+	@foreach  (LitterViewModel litter in Model)
+	{
+		<div class="container litter-container">
+			<div class="section-header">
+				<h2><span class="litter-name">Litter @litter.Name</span></h2>
+				<p>
+					DOB: @litter.Birthday.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)
+					<br />
+					Colour: @litter.Colours
+					<br />
+					Mother: @litter.MotherName
+					<br />
+					Father: @litter.FatherName
+					<br />
+					Blood Group: @litter.BloodGroup
+					<br />
+				</p>
+				@if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+				{
+					<a style="color:green" href="/Administration/Administration/AddKittenToLitter?litterId=@litter.LitterId">Добави коте към котило</a>
+					<br />
+					<a class="confirmation" style="color:red" href="/Administration/Administration/RemoveLitter?litterId=@litter.LitterId">ИЗТРИЙ КОТИЛО</a>
+				}
+			</div>
+			<div class="blog-content">
+				@foreach (KittenViewModel kitten in litter.Kittens)
+				{
+					<div class="single-blog-item">
+						<div class="litter-image">
+							@if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+							{
+								<a class="confirmation" style="color:red" href="/Administration/Administration/RemoveKitten?kittenId=@kitten.KittenId&litterId=@litter.LitterId">ИЗТРИЙ КОТЕТО</a>
+							}
+							<div class="single-blog-item-txt litter-box">
+								<h3 class="litter-title">
+									@kitten.Name - @kitten.Gender
+								</h3>
+								<p class="litter-p">
+									<a href="~/pictures/pedigreeImages/@kitten.PedigreeImage" target="_blank">View pedigree</a>
+									@* TODO Pedigrees*@
+								</p>
+							</div>
+							<div>
+								<img src="~/pictures/kittenImages/@kitten.ProfileImage" alt="blog image">
+							</div>
+						</div>
+					</div>
+
+				}
+			</div>
+		</div>
+	}
+</section>
+
+<script type="text/javascript">
+	var elems = document.getElementsByClassName('confirmation');
+	var confirmIt = function (e) {
+		if (!confirm('Сигурни ли сте, че искате да го изтриете?')) e.preventDefault();
+	};
+	for (var i = 0, l = elems.length; i < l; i++) {
+		elems[i].addEventListener('click', confirmIt, false);
+	}
+</script>

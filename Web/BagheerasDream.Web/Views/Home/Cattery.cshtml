@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Cattery";
+}
+
+<section id="blog" class="blog">
+	<div class="container-lg">
+		<div class="section-header">
+			<h2>@ViewData["Title"]</h2>
+		</div>
+		<div class="blog-content">
+			<div class="row">
+				<div class="col-md-4 col-sm-6">
+					<div class="single-blog-item">
+						<div class="single-blog-item-img">
+							<img src="~/pictures/cattery.jpg" alt="Exhibition image">
+						</div>
+						<div class="single-blog-item-txt">
+							<p class="about-us-p">
+								We are delighted to welcome you in our gallery. Here you can take a look at our beautiful ladies and gentlemen and learn a little bit about them.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<button class="cat-button" onclick="window.location.href='/Cattery/Male'">
+					<span class="text">Go to male cats</span>
+				</button>
+				<br />
+				<button class="cat-button" onclick="window.location.href='/Cattery/Female'">
+					<span class="text">Go to female cats</span>
+				</button>
+			</div>
+		</div>
+	</div><!--/.container-->
+
+</section>

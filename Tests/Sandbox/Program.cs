@@ -5,14 +5,14 @@
     using System.IO;
     using System.Threading.Tasks;
 
-    using Bagheeras.Dream.Data;
-    using Bagheeras.Dream.Data.Common;
-    using Bagheeras.Dream.Data.Common.Repositories;
-    using Bagheeras.Dream.Data.Models;
-    using Bagheeras.Dream.Data.Repositories;
-    using Bagheeras.Dream.Data.Seeding;
-    using Bagheeras.Dream.Services.Data;
-    using Bagheeras.Dream.Services.Messaging;
+    using BagheerasDream.Data;
+    using BagheerasDream.Data.Common;
+    using BagheerasDream.Data.Common.Repositories;
+    using BagheerasDream.Data.Models;
+    using BagheerasDream.Data.Repositories;
+    using BagheerasDream.Data.Seeding;
+    using BagheerasDream.Services.Data;
+    using BagheerasDream.Services.Messaging;
 
     using CommandLine;
 
@@ -52,8 +52,8 @@
         {
             var sw = Stopwatch.StartNew();
 
-            var settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
+            //var settingsService = serviceProvider.GetService<ISettingsService>();
+            //Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
 
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
@@ -81,7 +81,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
+           //  services.AddTransient<ISettingsService, SettingsService>(); 
         }
     }
 }

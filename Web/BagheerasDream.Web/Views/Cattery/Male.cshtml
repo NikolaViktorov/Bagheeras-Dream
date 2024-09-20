@@ -1,0 +1,63 @@
+﻿@using BagheerasDream.Web.ViewModels.Cats
+@using BagheerasDream.Common
+
+@model ICollection<CatViewModel>
+
+@{
+    ViewData["Title"] = "Male cats";
+}
+<h3>
+	<button class="go-to" onclick="window.location.href='/Cattery/Female'">
+		<span class="text">---> Go to female cats</span>
+	</button>
+</h3>
+<section id="blog" class="blog">
+	<div class="container">
+		<div class="section-header">
+			<h2>@ViewData["Title"]</h2>
+			<p>
+				Welcome to Bagheera’s Dream Cattery,
+			</p>
+		</div>
+		<div class="blog-content">
+			@foreach (CatViewModel cat in this.Model)
+			{
+				<div class="single-blog-item">
+					<div class="photo">
+						@if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+						{
+							<a class="confirmation" style="color:red" href="/Administration/Administration/RemoveCat?catId=@cat.CatId">ИЗТРИЙ КОТКА</a>
+						}
+						<div class="single-blog-item-txt cat-box">							
+							<h3 class="cat-title">
+								@cat.Name
+							</h3>
+							<p class="cat-p">
+								@if (cat.Title != null)
+								{
+									<span class="cat-type">@cat.Title</span> <br />
+								}
+								DOB: @cat.Birthday.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture) <br />
+								Colour: @cat.Colour
+							</p>
+						</div>
+						<div class="image">
+							<img src="~/pictures/cats/@cat.ProfileImage" alt="blog image">
+						</div>			
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+	
+</section>
+
+<script type="text/javascript">
+	var elems = document.getElementsByClassName('confirmation');
+	var confirmIt = function (e) {
+		if (!confirm('Сигурни ли сте, че искате да го изтриете?')) e.preventDefault();
+	};
+	for (var i = 0, l = elems.length; i < l; i++) {
+		elems[i].addEventListener('click', confirmIt, false);
+	}
+</script>
