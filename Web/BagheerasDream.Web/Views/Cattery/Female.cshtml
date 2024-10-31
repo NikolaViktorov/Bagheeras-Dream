@@ -46,12 +46,6 @@
 						<div class="image">
 							<img src="~/pictures/cats/@cat.ProfileImage" alt="blog image">
 						</div>
-						@if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-						{
-							<div>
-								<a class="nav-link text-dark" href="/Administration/Administration/RemoveCat?catId=@cat.CatId">Remove Cat</a>
-							</div>
-						}
 					</div>
 				</div>
 			}
